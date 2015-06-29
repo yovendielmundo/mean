@@ -18,17 +18,19 @@ Articles.register(function(app, auth, database, swagger) {
 
   Articles.aggregateAsset('css', 'articles.css');
 
-  
+
   //We are adding a link to the main menu for all authenticated users
   Articles.menus.add({
     'roles': ['authenticated'],
     'title': 'Articles',
-    'link': 'all articles'
+    'link': 'all articles',
+    'position': 1
   });
   Articles.menus.add({
     'roles': ['authenticated'],
     'title': 'Create New Article',
-    'link': 'create article'
+    'link': 'create article',
+    'position': 2
   });
 
   Articles.events.design({
@@ -58,6 +60,6 @@ Articles.register(function(app, auth, database, swagger) {
 
   // Only use swagger.add if /docs and the corresponding files exists
   swagger.add(__dirname);
-	
+
   return Articles;
 });

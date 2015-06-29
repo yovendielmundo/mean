@@ -7,8 +7,9 @@
 
             <div class="left pull-left">
                 <ul class="navbar-nav nav">
-                    <li ui-route="/{{item.link}}" ng-class="{active: $uiRoute}" ng-repeat="item in hdrctr.menus.main">
-                    <a mean-token="item.link" ui-sref='{{item.link}}'>{{item.title}}</a>
+                    <li ui-route="/{{item.link}}" ng-class="{active: $uiRoute}" ng-repeat="item in hdrctr.menus.main | orderBy:'position'">
+                        <a ng-if="!item.external" mean-token="item.link" ui-sref='{{item.link}}'>{{item.title}}</a>
+                        <a ng-if="item.external" mean-token="item.link" href='{{item.link}}' target="_blank">{{item.title}}</a>
                     </li>
                 </ul>
             </div>

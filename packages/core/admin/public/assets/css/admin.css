@@ -66,6 +66,7 @@
 }
 
 #admin-menu .opened .ninja {
+    pointer-events: none;
     position:absolute;
     width: 287px;
 }

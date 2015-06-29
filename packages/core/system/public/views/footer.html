@@ -1,0 +1,20 @@
+<div class="navbar navbar-inverse navbar-fixed-bottom" data-role="navigation" ng-controller="FooterController as ftrctr">
+    <div class="page-footer">
+        <div class="inner">
+
+            <div class="left pull-left">
+                <ul class="navbar-nav nav">
+                    <li ui-route="/{{item.link}}" ng-class="{active: $uiRoute}" ng-repeat="item in ftrctr.menus.footer | orderBy:'position'">
+                    <a ng-if="!item.external" mean-token="item.link" ui-sref='{{item.link}}'>{{item.title}}</a>
+                    <a ng-if="item.external" mean-token="item.link" href='{{item.link}}' target="_blank">{{item.title}}</a>
+                    <div ng-show="flase">{{item.position | number}}</div>
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
