@@ -1,0 +1,121 @@
+<div class="" data-ng-controller="MenusController as vm" ng-init="find()">
+
+  <form class="form-inline well">
+    <div class="form-group">
+      <label for="menu">Select a menu to edit:</label>
+      <select ng-options="item for item in vm.data.menus" ng-model="vm.selected" class="form-control" id="menu"></select>
+    </div>
+    <label class="control-label" for="newMenu">or <a href="#" ng-click="vm.createMenu=true">create a new menu</a></label>
+    <div ng-show="vm.createMenu" class="form-group">
+      <input type="text" ng-model="vm.newMenu" class="form-control" id="newMenu" require>
+      <button mean-token="'create'" type="button" class="btn btn-info" ng-click="addNewMenu()">create</button>
+      <button mean-token="'cancel'" type="button" class="btn btn-info" ng-click="vm.createMenu=false">cancel</button>
+    </div>
+  </form>
+
+
+  <div class="list-unstyled col-md-6 row">
+    <div class="form-horizontal menu-data menu-data-new">
+    <a href="#" ng-click="vm.createNew=true" ng-show="!vm.createNew">
+      <i class="fa fa-plus"></i>
+      &nbsp;Add new link to {{vm.selected}} menu
+    </a>
+    <div ng-show="vm.createNew">
+      <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">title</label>
+        <div class="col-sm-8">
+          <input type="text" ng-model="newItem.value.title" class="form-control" id="title">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="link" class="col-sm-2 control-label">link</label>
+        <div class="col-sm-6">
+          <input type="text" ng-model="newItem.value.link" class="form-control" id="link">
+        </div>
+        <div class="col-sm-2 external">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="newItem.value.external"> External
+            </label>
+          </div>
+        </div> 
+      </div> 
+      <div class="form-group">
+        <label for="icon" class="col-sm-2 control-label">icon</label>
+        <div class="col-sm-8">
+          <input type="text" ng-model="newItem.value.icon" class="form-control" id="icon">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="roles" class="col-sm-2 control-label">roles</label>
+        <div class="col-sm-8">
+          <input type="text" ng-model="newItem.value.roles" class="form-control" id="roles">
+        </div>
+      </div> 
+      <div class="form-group" class="col-sm-2 control-label">
+        <div class="col-sm-offset-2 col-sm-8">
+          <button mean-token="'create-submit'" type="button" class="btn btn-info" ng-click="add(vm.selected)">Add</button>
+          <button mean-token="'cancel'" type="button" class="btn btn-info" ng-click="cancelCreate()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div ng-repeat="menu in vm.menus[vm.selected]" data-drop="true" ng-model='vm.menus[vm.selected]' jqyoui-droppable="{index: {{$index}}, onDrop:'vm.dropCallback(menu, $index, vm.selected)'}">
+      <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="vm.menus[vm.selected]" jqyoui-draggable="{index: {{$index}},animate:true}">
+        <p class="well move">{{menu.name}}
+
+          <span class="pull-right pointer" ng-click="show=!show" ng-show="!show">
+            <span class="caret"></span>
+          </span>
+          <span class="dropup pull-right pointer" ng-click="show=!show" ng-show="show">
+            <span class="caret"></span>
+          </span>
+        </p>
+        <form class="form-horizontal menu-data" ng-show="show">
+          <div class="form-group">
+            <label for="title-{{$index}}" class="col-sm-2 control-label">title</label>
+            <div class="col-sm-8">
+              <input type="text" ng-model="menu.title" class="form-control" id="title-{{$index}}">
+            </div> 
+          </div> 
+          <div class="form-group">
+            <label for="link-{{$index}}" class="col-sm-2 control-label">link</label>
+            <div class="col-sm-6">
+              <input type="text" ng-model="menu.link" class="form-control" id="link-{{$index}}">
+            </div>
+            <div class="col-sm-2 external">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="menu.external"> External
+                </label>
+              </div>
+            </div> 
+          </div> 
+          <div class="form-group">
+            <label for="icon-{{$index}}" class="col-sm-2 control-label">icon</label>
+            <div class="col-sm-8">
+              <input type="text" ng-model="menu.icon" class="form-control" id="icon-{{$index}}">
+            </div> 
+          </div> 
+          <div class="form-group">
+            <label for="roles-{{$index}}" class="col-sm-2 control-label">roles</label>
+            <div class="col-sm-8">
+              <input type="text" ng-model="menu.roles" class="form-control" id="roles-{{$index}}">
+            </div> 
+          </div> 
+          <div class="form-group" class="col-sm-2 control-label">
+            <div class="col-sm-offset-2 col-sm-8">
+              <button mean-token="'disable'" type="button" class="btn btn-info" ng-click="remove(vm.selected, menu)" ng-if="!menu.disable">Disable</button>
+              <button mean-token="'enable'" type="button" class="btn btn-success" ng-click="enable(vm.selected, menu)" ng-if="menu.disable">Enable</button>
+              <button mean-token="'update'" type="button" class="btn btn-info" ng-click="update(vm.selected, menu)">Update</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+

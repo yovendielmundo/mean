@@ -83,6 +83,9 @@
     -ms-transition-duration: 0.5s;
 }
 
+#admin-menu .icon {
+    color: #89D7F3;
+}
 
 tr.disabled {
     pointer-events: none;
@@ -129,6 +132,3 @@ span.editable-wrapper input {
     color: rgb(34, 134, 173);
     font-size: 12px;
 }
-
-
-

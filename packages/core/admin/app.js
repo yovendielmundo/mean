@@ -5,7 +5,6 @@
  */
 var Module = require('meanio').Module;
 var Admin = new Module('admin');
-var icons = 'admin/assets/img/icons/';
 /*
  * All MEAN packages require registration
  * Dependency injection is used to define required modules
@@ -25,7 +24,7 @@ Admin.register(function(app, auth, database) {
         link: 'modules',
         roles: ['admin'],
         menu: 'admin',
-        icon: icons + 'modules.png'
+        icon: 'fa-th'
     });
 
     Admin.menus.add({
@@ -33,7 +32,7 @@ Admin.register(function(app, auth, database) {
         link: 'themes',
         roles: ['admin'],
         menu: 'admin',
-        icon: icons + 'themes.png'
+        icon: 'fa-diamond'
     });
 
     Admin.menus.add({
@@ -41,7 +40,7 @@ Admin.register(function(app, auth, database) {
         link: 'settings',
         roles: ['admin'],
         menu: 'admin',
-        icon: icons + 'settings.png'
+        icon: 'fa-cog'
     });
 
     Admin.menus.add({
@@ -49,7 +48,7 @@ Admin.register(function(app, auth, database) {
         link: 'users',
         roles: ['admin'],
         menu: 'admin',
-        icon: icons + 'users.png'
+        icon: 'fa-users'
     });
 
     Admin.aggregateAsset('css', 'admin.css');

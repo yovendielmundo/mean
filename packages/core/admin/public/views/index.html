@@ -3,8 +3,7 @@
         <ul class="nav">
             <li class="stable" data-ng-repeat="item in menus.admin | orderBy:'position'" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}" ui-sref='{{item.link}}'>
                 <a href="">
-                    <img data-ng-show="item.icon" ng-src="{{item.icon}}">
-                    <img data-ng-show="!item.icon" src="admin/assets/img/icons/settings.png">
+                    <i class="fa {{(item.icon ? item.icon : 'fa-cog')}} fa-2x icon"></i>
                 </a>
 
                 <div class="showbox" mean-token="item.title">{{item.title}}</div>

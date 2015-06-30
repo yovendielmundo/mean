@@ -32,9 +32,17 @@ SystemPackage.register(function(app, auth, database) {
     menu: 'footer',
     link: 'http://www.linnovate.net/',
     external: true,
-    position: -1
+    position: -3
   });
   
+  SystemPackage.menus.add({
+    title: 'mean network',
+    roles: ['all'],
+    menu: 'footer',
+    link: 'http://mean.io/network',
+    external: true,
+    position: -1
+  });
 
   SystemPackage.aggregateAsset('css', 'common.css');
   SystemPackage.angularDependencies(['ui.router', 'mean-factory-interceptor']);
