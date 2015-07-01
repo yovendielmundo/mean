@@ -6,7 +6,7 @@ angular.module('mean.admin').controller('UsersController', ['$scope', 'Global', 
         $scope.userSchema = [{
             title: 'Email',
             schemaKey: 'email',
-            type: 'text',
+            type: 'email',
             inTable: true
         }, {
             title: 'Name',
@@ -55,11 +55,13 @@ angular.module('mean.admin').controller('UsersController', ['$scope', 'Global', 
                 roles: $scope.user.roles
             });
 
-            user.$save(function(response) {
-                $scope.users.push(response);
+            user.$save({}, function(data, headers) {
+                $scope.user = {};
+                $scope.users.push(user);
+                $scope.userError = null;
+            }, function(data, headers) {
+                $scope.userError = data.data;
             });
-
-            this.firstName = this.lastName = this.email = this.password = this.role = '';
         };
 
         $scope.remove = function(user) {
