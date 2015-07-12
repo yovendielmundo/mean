@@ -20,9 +20,10 @@ module.exports = function(Circles, app) {
         },
 
         tree: function(req, res) {
-            Circle.buildPermissions(function(data) {
-                res.send(data.tree);
-            });
+            // Circle.buildPermissions(function(data) {
+            //     res.send(data.tree);
+            // });
+            res.send({root:'flare', children: req.acl.user.tree});
         },
 
         create: function(req, res) {
