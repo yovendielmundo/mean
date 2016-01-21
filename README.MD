@@ -703,6 +703,19 @@ You can adjust the CPU_COUNT variable up or down based on how much memory your a
 1. Merge your completed local app into this new repo. You will have some conflicts, so merge carefully, line by line.
 1. Commit and push the repo with the Openshift code back up to Openshift. Restart your instance on Openshift, you should see your site!
 
+### Docker
+```
+$ docker build -t souqalmal-test .
+```
+```
+$ docker pull mongo
+$ docker run -d --name db mongo[ --noprealloc][ --smallfiles][ --nojournal]
+$ docker run -p 3000:3000 --link db:db souqalmal-test
+```
+or easy way
+```
+$ docker-compose up
+```
 
 ## More Information
   * Visit us at [Linnovate.net](http://www.linnovate.net/).
