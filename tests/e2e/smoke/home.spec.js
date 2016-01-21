@@ -5,24 +5,13 @@ describe('Smoke test home page', function(){
   });
 
   it('title should contain Souqalmal Test', function(){
-    expect(browser.getTitle()).toMatch(/.*Souqalmal test.*/);
+    expect(browser.getTitle()).toMatch(/.*MEAN.*/);
   });
 
-  it('should have a list of titles in the menu', function() {
-    var menuNameItem = element.all(by.repeater('item in hdrctr.menus.testThemeMain').column('item.title'));
+  it('should have an empty list of items in the menu', function() {
+    var menuNameItem = element.all(by.repeater('item in hdrctr.menus.testThemeMain'));
 
-    function getNames() {
-      return menuNameItem.map(function(elm) {
-        return elm.getText();
-      });
-    }
-
-    expect(menuNameItem.count()).toBe(1);
-
-    expect(getNames()).toEqual([
-      'Page one'
-    ]);
-
+    expect(menuNameItem.count()).toBe(0);
   });
 
 });
