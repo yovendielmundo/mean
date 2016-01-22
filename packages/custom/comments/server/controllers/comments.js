@@ -93,8 +93,6 @@ module.exports = function(Comments) {
           });
         }
 
-        console.log(comments);
-
         res.json(comments)
       });
 
