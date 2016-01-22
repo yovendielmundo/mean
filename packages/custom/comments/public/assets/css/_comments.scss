@@ -1,0 +1,54 @@
+.comments-container {
+  padding: 10px;
+  background: $article-content-back;
+  .input-group {
+    margin-bottom: 0;
+    width: 92%;
+  }
+  .comment {
+    padding: 5px 0 10px 5px;
+    border-bottom: 1px solid $comment-border;
+    .comment-author{
+      a{
+        color:$comment-author;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+
+    }
+    .comment-body-container {
+      display: table;
+      .comment-remove{
+        .comment-button{
+          color: $comment-remove-btn;
+          cursor: pointer;
+          text-decoration: none;
+          &:hover{
+            color: $comment-remove-hover;
+          }
+        }
+      }
+    }
+  }
+}
+
+.comment-items {
+  padding: 5px 0px;
+  + .comment-form {
+    padding: 5px 0px;
+  }
+}
+
+.comment-time-ago {
+  color: $like-list-link-hover;
+}
+
+.comment-button {
+  padding: 5px;
+}
+
+.comments-outer-wrapper{
+  width: 98%;
+  margin-bottom: 15px;
+}

@@ -20,6 +20,9 @@ module.exports = function (Comments, app, auth) {
       .put(auth.isMongoId, auth.requiresLogin, hasAuthorization, comments.update)
       .delete(auth.isMongoId, auth.requiresLogin, hasAuthorization, comments.destroy);
 
+  app.route('/api/comments/parent/:parentId')
+      .get(comments.fetchByParent);
+
 
   // Finish with setting up the postId param
   app.param('commentId', comments.comment);

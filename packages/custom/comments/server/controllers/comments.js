@@ -13,18 +13,18 @@ module.exports = function(Comments) {
 
   return {
     /**
-     * Find article by id
+     * Find comment by id
      */
     comment: function(req, res, next, id) {
       Comment.load(id, function(err, comment) {
         if (err) return next(err);
-        if (!comment) return next(new Error('Failed to load article ' + id));
+        if (!comment) return next(new Error('Failed to load comment ' + id));
         req.comment = comment;
         next();
       });
     },
     /**
-     * Create an article
+     * Create an comment
      */
     create: function(req, res) {
       var comment = new Comment(req.body);
@@ -33,7 +33,7 @@ module.exports = function(Comments) {
       comment.save(function(err) {
         if (err) {
           return res.status(500).json({
-            error: 'Cannot save the article'
+            error: 'Cannot save the comment'
           });
         }
 
@@ -68,18 +68,37 @@ module.exports = function(Comments) {
       comment.remove(function(err) {
         if (err) {
           return res.status(500).json({
-            error: 'Cannot delete the article'
+            error: 'Cannot delete the comment'
           });
         }
 
         res.json(comment);
       });
     },
-    /**
-     * Show an comment
-     */
-    show: function(req, res) {
-      res.json(req.comment);
+    fetchByParent: function(req, res) {
+      var parentId = req.params.parentId;
+      var limit = parseInt(req.query.limit);
+      var query = Comment.find({
+            article: parentId
+          })
+          .sort({
+            _id: -1
+          })
+          .populate('user', 'name username');
+      if (limit) {
+        query.limit(limit);
+      }
+
+      query.exec(function(err, comments) {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            error: 'Cannot list the comments'
+          });
+        } else {
+          res.json(comments);
+        }
+      });
     },
     /**
      * List of comment

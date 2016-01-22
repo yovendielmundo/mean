@@ -18,13 +18,17 @@ Comments.register(function(app, auth, database) {
 
   //We are adding a link to the main menu for all authenticated users
   Comments.menus.add({
-    title: 'comments example page',
-    link: 'comments example page',
-    roles: ['authenticated'],
+    title: 'Comments',
+    link: 'comments',
+    roles: ['authenticated', 'admin'],
     menu: 'main'
   });
-  
+
+
+  Comments.aggregateAsset('js', '../lib/angular-timeago/src/timeAgo.js');
   Comments.aggregateAsset('css', 'comments.css');
+
+  Comments.angularDependencies(['yaru22.angular-timeago']);
 
   return Comments;
 });

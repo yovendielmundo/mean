@@ -1,0 +1,16 @@
+<div class="comments-container">
+	<div class="load-more-comment" ng-if="loadcomment">
+		<i class="glyphicon glyphicon-comment"></i>
+	</div>
+	<div data-ng-repeat="comment in parent.comments | orderBy: '+created' " class="comment-items" >
+		<div class="comment">
+			<div>
+				<span class="comment-author"><a href="#!/users/{{comment.user._id}}">{{comment.user.name}}</a></span>
+				<span class="comment-time-ago" time-ago from-time="{{comment.created}}"></span>
+				<div class="comment-body-container">
+					<span class="comment-body" ng-bind-html="comment.text">{{comment.text}}</span>
+        		</div>
+      		</div>
+    	</div>
+  	</div>
+</div>

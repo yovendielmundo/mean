@@ -1,5 +1,7 @@
 {
   "name": "comments",
   "version": "0.0.1",
-  "dependencies": {}
+  "dependencies": {
+    "angular-timeago": "~0.1.2"
+  }
 }

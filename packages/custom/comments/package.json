@@ -5,6 +5,9 @@
   "author": {
     "name": "Luis Miguel"
   },
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "mean": "0.5.5",
   "engines": {
     "node": "4.2.x",
