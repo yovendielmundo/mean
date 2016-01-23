@@ -1,7 +1,4 @@
 <div class="comments-container">
-	<div class="load-more-comment" ng-if="loadcomment">
-		<i class="glyphicon glyphicon-comment"></i>
-	</div>
 	<div data-ng-repeat="comment in parent.comments | orderBy: '+created' " class="comment-items" >
 		<div class="comment">
 			<div>
@@ -10,6 +7,11 @@
 				<div class="comment-body-container">
 					<span class="comment-body" ng-bind-html="comment.text">{{comment.text}}</span>
         		</div>
+				<span class="comment-remove">
+						<a class="comment-button" data-ng-click="remove(comment, $index);">
+							<i>delete</i>
+						</a>
+				</span>
       		</div>
     	</div>
   	</div>

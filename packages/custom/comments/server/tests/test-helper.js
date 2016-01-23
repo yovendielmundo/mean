@@ -6,42 +6,68 @@ var mongoose = require('mongoose'),
     Comment = mongoose.model('Comment'),
     crypto = require('crypto');
 
-function getRandomString(len) {
+var getRandomString = function(len) {
   if (!len)
     len = 16;
   return crypto.randomBytes(Math.ceil(len / 2)).toString('hex');
 }
 
-exports.mockUser = function(){
+var newUser = function(name) {
   return new User({
-    name: 'Full name',
-    email: 'test' + getRandomString() + '@test.com',
+    name: name,
+    email: 'test' + name + '@test.com',
     username: getRandomString(),
     password: 'password',
     provider: 'local'
   });
 }
 
-exports.mockArticle = function(user){
+var newArticle = function (user) {
   return new Article({
-    title: 'Title',
-    content: 'Content',
+    title: 'Article by: ' + user.name,
+    content: 'Content of the article',
     user: user
   });
-}
+};
 
-exports.mockComment = function(user, article){
+var newComment = function(user, article) {
   return new Comment({
-    text: 'Comment text',
+    text: 'Comment for article' + article.title,
     user: user,
     article: article
   });
 }
 
-exports.drop = function(user, article, comment, done){
-  article.remove(function() {
-    user.remove(function(){
-      comment.remove(done);
+exports.createUser = function(){
+  var user = newUser(getRandomString(4));
+  User.create(user);
+  return user;
+}
+
+exports.createArticle = function(user){
+  var article = newArticle(user);
+  Article.create(article);
+  return article;
+}
+
+exports.createComment = function(user, article){
+  var comment = newComment(user, article);
+  Comment.create(comment);
+  return comment;
+}
+
+exports.createBulkOfComments = function(user, article, num){
+  var docs = [];
+  for (var i = 0; i < num; i++){
+    docs.push(newComment(user, article));
+  }
+  Comment.create(docs);
+}
+
+exports.drop = function(done){
+  User.remove(function() {
+    Article.remove(function () {
+      Comment.remove(done);
     });
   });
 }

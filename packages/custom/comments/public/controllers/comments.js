@@ -3,6 +3,9 @@
 /* jshint -W098 */
 angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'FetchComments',
   function($scope, Global, Comments, FetchComments) {
+
+
+
     $scope.global = Global;
     $scope.package = {
       name: 'comments'
@@ -16,12 +19,12 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
 
       if (fixedNumberOfComments) {
         queryParams = {
-          parentId: parent._id,
+          articleId: parent._id,
           limit: fixedNumberOfComments + 1
         };
       } else {
         queryParams = {
-          parentId: parent._id
+          articleId: parent._id
         };
       }
 
@@ -54,6 +57,16 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
       });
 
       this.text = '';
+    };
+
+    $scope.remove = function(comment, index) {
+      var status = confirm('Do you want to delete this comment.?');
+      if (status) {
+        var commentDelete = new Comments(comment);
+        commentDelete.$remove().then(function(comment) {
+          $scope.parent.comments.splice(index, 1);
+        });
+      }
     };
 
   }

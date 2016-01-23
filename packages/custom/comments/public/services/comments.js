@@ -18,8 +18,8 @@ angular.module('mean.comments').factory('Comments', ['$resource',
         isArray: true
       },
     };
-    return $resource('api/comments/parent/:parentId', {
-      parentId: '@_id'
+    return $resource('api/comments/article/:articleId', {
+      articleId: '@_id'
     }, config);
   }
 ]);

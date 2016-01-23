@@ -13,23 +13,11 @@ module.exports = function(Comments) {
 
   return {
     /**
-     * Find comment by id
-     */
-    comment: function(req, res, next, id) {
-      Comment.load(id, function(err, comment) {
-        if (err) return next(err);
-        if (!comment) return next(new Error('Failed to load comment ' + id));
-        req.comment = comment;
-        next();
-      });
-    },
-    /**
      * Create an comment
      */
     create: function(req, res) {
       var comment = new Comment(req.body);
       comment.user = req.user;
-
       comment.save(function(err) {
         if (err) {
           return res.status(500).json({
@@ -63,23 +51,27 @@ module.exports = function(Comments) {
      * Delete an comment
      */
     destroy: function(req, res) {
-      var comment = req.comment;
-
-      comment.remove(function(err) {
+      var commentId = req.params.commentId;
+      Comment.remove({'_id': commentId},function(err) {
         if (err) {
           return res.status(500).json({
             error: 'Cannot delete the comment'
           });
         }
 
-        res.json(comment);
+        res.status(202).json('Done');
       });
     },
-    fetchByParent: function(req, res) {
-      var parentId = req.params.parentId;
+    /**
+     * find by article id
+     * @param req
+     * @param res
+     */
+    findByArticleId: function(req, res) {
+      var articleId = req.params.articleId;
       var limit = parseInt(req.query.limit);
       var query = Comment.find({
-            article: parentId
+            article: articleId
           })
           .sort({
             _id: -1
@@ -100,21 +92,6 @@ module.exports = function(Comments) {
         }
       });
     },
-    /**
-     * List of comment
-     */
-    all: function(req, res) {
 
-      Comment.find().populate('user', 'name username').exec(function(err, comments) {
-        if (err) {
-          return res.status(500).json({
-            error: 'Cannot list the comments'
-          });
-        }
-
-        res.json(comments)
-      });
-
-    }
   };
 }
