@@ -7,7 +7,7 @@
 				<div class="comment-body-container">
 					<span class="comment-body" ng-bind-html="comment.text">{{comment.text}}</span>
         		</div>
-				<span class="comment-remove">
+				<span class="comment-remove" data-ng-show="isOwnerOrAdmin(comment)">
 						<a class="comment-button" data-ng-click="remove(comment, $index);">
 							<i>delete</i>
 						</a>

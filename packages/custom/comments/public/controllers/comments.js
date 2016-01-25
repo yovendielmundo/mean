@@ -1,8 +1,8 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'FetchComments',
-  function($scope, Global, Comments, FetchComments) {
+angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'MeanUser', 'FetchComments',
+  function($scope, Global, Comments, MeanUser,FetchComments) {
 
 
 
@@ -67,6 +67,10 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
           $scope.parent.comments.splice(index, 1);
         });
       }
+    };
+
+    $scope.isOwnerOrAdmin = function(comment) {
+      return MeanUser.isAdmin || comment.user._id === MeanUser.user._id;
     };
 
   }

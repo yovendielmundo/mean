@@ -716,6 +716,10 @@ or easy way
 ```
 $ docker-compose up
 ```
+Run tests into docker container
+```
+$ docker exec -it `docker ps -q -l` gulp test
+```
 
 ## More Information
   * Visit us at [Linnovate.net](http://www.linnovate.net/).
