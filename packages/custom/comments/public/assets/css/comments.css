@@ -29,6 +29,9 @@
 .comments-container .comment .comment-body-container {
   display: table;
 }
+.comments-container .comment-status-pending {
+  background: #edf2bd;
+}
 .comments-container .comment .comment-body-container .comment-remove .comment-button {
   color: #b0aeaf;
   cursor: pointer;
@@ -44,7 +47,6 @@
 .load-more-comment a {
   text-decoration: underline;
   cursor: pointer;
-  text-decoration: underline;
 }
 .load-more-comment a:hover {
   color: #2a6496;

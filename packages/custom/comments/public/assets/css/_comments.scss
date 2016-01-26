@@ -9,7 +9,7 @@
     padding: 5px 0 10px 5px;
     border-bottom: 1px solid $comment-border;
     .comment-author{
-      a{
+      {
         color:$comment-author;
         &:hover{
           text-decoration: none;
@@ -30,6 +30,9 @@
         }
       }
     }
+  }
+  .comment-status-pending {
+    background: #edf2bd;
   }
 }
 

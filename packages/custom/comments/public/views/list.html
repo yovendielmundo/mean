@@ -1,6 +1,6 @@
 <div class="comments-container">
 	<div data-ng-repeat="comment in parent.comments | orderBy: '+created' " class="comment-items" >
-		<div class="comment">
+		<div class="comment comment-status-{{comment.status}}">
 			<div>
 				<span class="comment-author"><a href="#!/users/{{comment.user._id}}">{{comment.user.name}}</a></span>
 				<span class="comment-time-ago" time-ago from-time="{{comment.created}}"></span>
