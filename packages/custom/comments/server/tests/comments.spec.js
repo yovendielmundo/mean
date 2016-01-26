@@ -28,6 +28,7 @@ describe('<Unit Test>', function() {
         return comment.save(function(err, data) {
           expect(err).to.be(null);
           expect(data.text).to.equal('Comment text');
+          expect(data.status).to.equal('pending');
           expect(data.user.length).to.not.equal(0);
           expect(data.article.length).to.not.equal(0);
           expect(data.created.length).to.not.equal(0);

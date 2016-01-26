@@ -70,25 +70,30 @@ module.exports = function(Comments) {
     findByArticleId: function(req, res) {
       var articleId = req.params.articleId;
       var limit = parseInt(req.query.limit);
-      var query = Comment.find({
-            article: articleId
-          })
-          .sort({
-            _id: -1
-          })
-          .populate('user', 'name username');
+      var query = Comment.find({article: articleId}).sort({_id: -1}).populate('user', 'name username');
+
       if (limit) {
         query.limit(limit);
       }
 
       query.exec(function(err, comments) {
         if (err) {
-          console.log(err);
           return res.status(500).json({
             error: 'Cannot list the comments'
           });
         } else {
-          res.json(comments);
+
+          var user = req.user;
+          if(user.isAdmin()) {
+            res.json(comments);
+          } else {
+            var filteredComments = _.filter(comments, function(c) {
+              return !c.isPending() || _.isEqual(c.user._id, req.user._id)
+            });
+
+            res.json(filteredComments);
+          }
+
         }
       });
     },

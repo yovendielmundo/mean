@@ -29,7 +29,7 @@
                 <ul class="navbar-nav nav auth-link" ng-show="!hdrctr.hdrvars.authenticated">
                     <li><a ui-sref='auth.register'>Join</a></li>
                     <li class="divider-vertical"></li>
-                    <li><a ui-sref='auth.login'>Log In</a></li>
+                    <li><a ui-sref='auth.login' ng-model="auth.login">Log In</a></li>
                 </ul>
                 <ul class="navbar-nav nav" ng-show="hdrctr.hdrvars.authenticated">
                     <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
@@ -37,7 +37,7 @@
                             <span>{{hdrctr.hdrvars.user.name}}</span> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="hdrctr.logout()">Log Out</a></li>
+                            <li><a href="#" ng-model="auth.logout" ng-click="hdrctr.logout()">Log Out</a></li>
                         </ul>
                     </li>
                 </ul>

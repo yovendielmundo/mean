@@ -26,6 +26,12 @@ var CommentSchema = new Schema({
     trim: true,
     required: true
   },
+  status: {
+    type: String,
+    trim: true,
+    required: true,
+    default: 'pending'
+  },
   article: {
     type: Schema.ObjectId,
     ref: 'Article',
@@ -42,6 +48,10 @@ var CommentSchema = new Schema({
     type: String
   }
 });
+
+CommentSchema.methods.isPending = function() {
+  return this.status === 'pending';
+};
 
 /**
  * Validations

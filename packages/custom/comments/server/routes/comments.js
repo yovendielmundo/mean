@@ -11,6 +11,6 @@ module.exports = function (Comments, app, auth) {
       .delete(auth.isMongoId, auth.requiresLogin, comments.destroy);
 
   app.route('/api/comments/article/:articleId')
-      .get(comments.findByArticleId);
+      .get(auth.requiresLogin, comments.findByArticleId);
 
 };
