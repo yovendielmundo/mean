@@ -8,7 +8,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     _ = require('lodash');
 
-
+var pending = 'pending';
+var approved = 'approved';
 /**
  * Comment Schema
  */
@@ -30,7 +31,7 @@ var CommentSchema = new Schema({
     type: String,
     trim: true,
     required: true,
-    default: 'pending'
+    default: pending
   },
   article: {
     type: Schema.ObjectId,
@@ -50,7 +51,7 @@ var CommentSchema = new Schema({
 });
 
 CommentSchema.methods.isPending = function() {
-  return this.status === 'pending';
+  return this.status === pending;
 };
 
 /**
@@ -68,4 +69,10 @@ CommentSchema.statics.load = function (id, cb) {
     _id: id
   }).populate('user', 'name username').exec(cb);
 };
+
+CommentSchema.statics.status = {
+  approved: approved,
+  pending: pending
+};
+
 mongoose.model('Comment', CommentSchema);

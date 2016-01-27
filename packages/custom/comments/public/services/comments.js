@@ -10,7 +10,7 @@ angular.module('mean.comments').factory('Comments', ['$resource',
       }
     });
   }
-]).factory('FetchComments', ['$resource',
+]).factory('fetchComments', ['$resource',
   function($resource) {
     var config = {
       query: {
@@ -22,4 +22,24 @@ angular.module('mean.comments').factory('Comments', ['$resource',
       articleId: '@_id'
     }, config);
   }
-]);
+]).factory('utils', function() {
+  return {
+    $findCommentById: function(comments, id) {
+      for(var i = 0; i < comments.length; i++) {
+        var item = comments[i];
+        if(item._id === id) {
+          return item;
+        }
+      }
+      return null;
+    },
+    $removeCommentById: function(comments, id) {
+      for(var i = 0; i < comments.length; i++) {
+        var item = comments[i];
+        if(item._id === id) {
+          comments.splice(i, 1);
+        }
+      }
+    }
+  }
+});

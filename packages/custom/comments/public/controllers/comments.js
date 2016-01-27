@@ -1,10 +1,8 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'MeanUser', 'FetchComments',
-  function($scope, Global, Comments, MeanUser,FetchComments) {
-
-
+angular.module('mean.comments').controller('CommentsController', ['$scope', 'Global', 'Comments', 'MeanUser', 'fetchComments', 'utils',
+  function($scope, Global, Comments, MeanUser, fetchComments, utils) {
 
     $scope.global = Global;
     $scope.package = {
@@ -28,7 +26,7 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
         };
       }
 
-      FetchComments.query(queryParams)
+      fetchComments.query(queryParams)
           .$promise.then(function(comments) {
         if (fixedNumberOfComments && comments.length > fixedNumberOfComments) {
           $scope.loadcomment = true;
@@ -44,11 +42,11 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
       var comment = new Comments({
         text: text,
         article: parent._id,
-        user: Global.user._id
+        user: MeanUser.user._id
       });
 
       comment.$save().then(function(data) {
-        data.user = Global.user;
+        data.user = MeanUser.user;
 
         if ($scope.parent.comments.length === 0) {
           $scope.parent.comments = [];
@@ -59,18 +57,30 @@ angular.module('mean.comments').controller('CommentsController', ['$scope', 'Glo
       this.text = '';
     };
 
-    $scope.remove = function(comment, index) {
-      var status = confirm('Do you want to delete this comment.?');
+    $scope.remove = function(comment) {
+      var status = confirm('Do you want to delete?');
       if (status) {
         var commentDelete = new Comments(comment);
-        commentDelete.$remove().then(function(comment) {
-          $scope.parent.comments.splice(index, 1);
+        commentDelete.$remove().then(function() {
+          utils.$removeCommentById($scope.parent.comments, comment._id);
         });
       }
     };
 
-    $scope.isOwnerOrAdmin = function(comment) {
+    $scope.approve = function(comment) {
+      var commentUpdate = new Comments(comment);
+      commentUpdate.$update().then(function(comment) {
+        var c = utils.$findCommentById($scope.parent.comments, comment._id);
+        if(c !== null) c.status = comment.status;
+      });
+    };
+
+    $scope.canDelete = function(comment) {
       return MeanUser.isAdmin || comment.user._id === MeanUser.user._id;
+    };
+
+    $scope.canApprove = function(comment) {
+      return comment.status === 'pending' && MeanUser.isAdmin;
     };
 
   }

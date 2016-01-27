@@ -29,25 +29,6 @@ module.exports = function(Comments) {
       });
     },
     /**
-     * Update an comment
-     */
-    update: function(req, res) {
-      var comment = req.comment;
-
-      comment = _.extend(comment, req.body);
-
-
-      comment.save(function(err) {
-        if (err) {
-          return res.status(500).json({
-            error: 'Cannot update the comment'
-          });
-        }
-
-        res.json(comment);
-      });
-    },
-    /**
      * Delete an comment
      */
     destroy: function(req, res) {
@@ -97,6 +78,26 @@ module.exports = function(Comments) {
         }
       });
     },
+    /**
+     * Delete an comment
+     */
+    approve: function(req, res) {
+
+      var query = {'_id': req.body._id};
+      var update = {status: Comment.status.approved};
+      var options = {new: false};
+
+      Comment.findOneAndUpdate(query, update, options, function(err, comment) {
+        if (err) {
+          return res.status(500).json({
+           error: 'Cannot update the comment'
+           });
+        }
+        comment.status = Comment.status.approved;
+        res.json(comment);
+      });
+
+    }
 
   };
 }

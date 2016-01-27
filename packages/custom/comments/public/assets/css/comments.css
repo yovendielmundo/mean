@@ -30,7 +30,7 @@
   display: table;
 }
 .comments-container .comment-status-pending {
-  background: #edf2bd;
+  background: #566371;
 }
 .comments-container .comment .comment-body-container .comment-remove .comment-button {
   color: #b0aeaf;
@@ -42,14 +42,6 @@
 }
 .comments-container .comment .comment-body-container .mention-user {
   color: #428bca;
-}
-
-.load-more-comment a {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.load-more-comment a:hover {
-  color: #2a6496;
 }
 
 .comment-items {

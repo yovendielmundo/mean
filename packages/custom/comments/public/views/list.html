@@ -6,12 +6,16 @@
 				<span class="comment-time-ago" time-ago from-time="{{comment.created}}"></span>
 				<div class="comment-body-container">
 					<span class="comment-body" ng-bind-html="comment.text">{{comment.text}}</span>
-        		</div>
-				<span class="comment-remove" data-ng-show="isOwnerOrAdmin(comment)">
-						<a class="comment-button" data-ng-click="remove(comment, $index);">
+					<br>
+					<span class="comment-remove">
+						<a class="comment-button" data-ng-show="canApprove(comment)" data-ng-click="approve(comment);">
+							<i>approve</i>
+						</a>
+						<a class="comment-button" data-ng-show="canDelete(comment)" data-ng-click="remove(comment, $index);">
 							<i>delete</i>
 						</a>
-				</span>
+					</span>
+				</div>
       		</div>
     	</div>
   	</div>
